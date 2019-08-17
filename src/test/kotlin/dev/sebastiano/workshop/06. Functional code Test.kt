@@ -10,6 +10,7 @@ import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
 import assertk.assertions.isNull
+import assertk.assertions.isZero
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
@@ -318,6 +319,52 @@ internal class SupermarketTest {
             )
         }
     }
+
+    @Nested
+    inner class ForEachStockItem {
+
+        private val counter = Counter()
+
+        @Test
+        internal fun `should never execute the action when there are no aisles`() {
+            val emptySupermarket = Supermarket(theBigBoss, emptySet())
+
+            emptySupermarket.forEachStockItem { _, _ -> counter.recordOneItem() }
+
+            assertThat(counter.count).isZero()
+        }
+
+        @Test
+        internal fun `should never execute the action when if the aisles are empty`() {
+            val emptySupermarket = Supermarket(
+                    theBigBoss,
+                    setOf(foodAisle.copy(stock = emptyMap()), drinksAisle.copy(stock = emptyMap()))
+            )
+
+            emptySupermarket.forEachStockItem { _, _ -> counter.recordOneItem() }
+
+            assertThat(counter.count).isZero()
+        }
+
+        @Test
+        internal fun `should execute the action the correct number of times when there is only one aisle with stock`() {
+            val supermarket = Supermarket(
+                    theBigBoss,
+                    setOf(foodAisle, drinksAisle.copy(stock = emptyMap()))
+            )
+
+            supermarket.forEachStockItem { _, _ -> counter.recordOneItem() }
+
+            assertThat(counter.count).isEqualTo(foodAisle.stock.size)
+        }
+
+        @Test
+        internal fun `should execute the action the correct number of times when there are multiple aisles with stock`() {
+            supermarket.forEachStockItem { _, _ -> counter.recordOneItem() }
+
+            assertThat(counter.count).isEqualTo(foodAisle.stock.size + drinksAisle.stock.size + clothingAisle.stock.size)
+        }
+    }
 }
 
 private fun Assert<Map<Aisle, List<StockItem>>>.containsExactly(vararg itemsByAisle: Pair<Aisle, List<StockItem>>) {
@@ -397,3 +444,15 @@ private val clothingAisle = Aisle(
                 StockItem("Socks", 345) to 50
         )
 )
+
+private class Counter {
+
+    var count: Int = 0
+        private set(value) {
+            field = value
+        }
+
+    fun recordOneItem() {
+        count++
+    }
+}
