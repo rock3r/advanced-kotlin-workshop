@@ -7,6 +7,7 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    maven { url 'https://dl.bintray.com/s1m0nw1/KtsRunner' }
 }
 
 dependencies {
@@ -15,6 +16,8 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.1'
     testImplementation 'com.willowtreeapps.assertk:assertk-jvm:0.19'
+    testImplementation 'org.jsoup:jsoup:1.12.1'
+    testImplementation 'de.swirtz:ktsRunner:0.0.7'
 }
 
 test {
