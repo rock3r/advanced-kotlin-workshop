@@ -12,6 +12,8 @@ one or more source files with `TODO()`s that have to be filled in to make the co
 excercise are located in the same package and can be found in the corresponding folders in
 [`src/test/kotlin`](src/test/kotlin).
 
+You can find the accompanying slide deck here: http://bit.ly/advanced-kotlin-workshop-slides
+
 **Protip!** You can navigate to a file's tests by pressing <kbd>⌘ Command</kbd> + <kbd>⇧ Shift</kbd> + <kbd>T</kbd> on Mac,
 or <kbd>^ Ctrl</kbd> + <kbd>⇧ Shift</kbd> + <kbd>T</kbd> on Windows and Linux. More details
 [here](https://www.jetbrains.com/help/idea/navigating-between-test-and-test-subject.html).
