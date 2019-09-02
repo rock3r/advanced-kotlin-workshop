@@ -17,8 +17,7 @@ internal class ReifiedTypesTest {
     internal fun `should execute the action when the type matches`() {
         var value: Fruit? = null
         items.forEach { item ->
-            // TODO uncomment this line and make the code compile
-//            item.doIfTypeMatches<Fruit, Banana> { fruit -> value = fruit }
+            item.doIfTypeMatches<Fruit, Banana> { fruit -> value = fruit }
         }
 
         assertThat(value).isEqualTo(Banana)
@@ -26,10 +25,9 @@ internal class ReifiedTypesTest {
 
     @Test
     internal fun `should never execute the action when the type doesn't match`() {
-        var value: Fruit? = Melon // TODO this should be initialized to null
+        var value: Fruit? = null
         items.forEach { item ->
-            // TODO uncomment this line and make the code compile
-//            item.doIfTypeMatches<Fruit, Melon> { fruit -> value = fruit }
+            item.doIfTypeMatches<Fruit, Melon> { fruit -> value = fruit }
         }
 
         assertThat(value).isNull()
