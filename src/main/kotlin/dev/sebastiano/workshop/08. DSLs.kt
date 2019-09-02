@@ -1,25 +1,42 @@
 package dev.sebastiano.workshop
 
-// TODO: create a DSL so that HtmlDslTest passes.
-//
-// Required DSL method names and expected toString output:
-//
-//      * html              -> <html>...</html>
-//        * head            -> <head>...</head>
-//          * title         -> <title>...</title>
-//        * body            -> <body>...</body>
-//          * h1            -> <h1>...</h1>
-//          * orderedList   -> <ol>...</ol>
-//            * listItem    -> <li>...</li>
-//              * rawText   -> [text value]
-//
-// Where each ... in a tag is essentially the toString() of all child nodes.
-// For example, the toString() of:
-//
-//      html { head { title("Title") } }
-//
-// Should be an equivalent to: <html><head><title>Title</title></head></html>
-// (the tests use JSoup to normalize the resulting HTML to give you some freedom)
+fun html(creator: Html.() -> Unit): Html = Html().apply { creator() }
+
+fun Html.head(creator: Head.() -> Unit) {
+    addChild(Head(), creator, mustBeUnique = true)
+}
+
+fun Html.body(creator: Body.() -> Unit) {
+    addChild(Body(), creator, mustBeUnique = true)
+}
+
+infix fun Head.title(text: String) {
+    addChild(Title(text), {}, mustBeUnique = true)
+}
+
+fun Body.h1(text: String) {
+    addChild(Header1(text), {})
+}
+
+fun Body.orderedList(creator: OrderedList.() -> Unit) {
+    addChild(OrderedList(), creator)
+}
+
+fun OrderedList.listItem(creator: ListItem.() -> Unit) {
+    addChild(ListItem(), creator)
+}
+
+fun ListItem.rawText(text: String) {
+    addChild(RawText(text), {})
+}
+
+private inline fun <reified T : Tag> Tag.addChild(child: T, creator: T.() -> Unit, mustBeUnique: Boolean = false) {
+    if (mustBeUnique && children.any { it is T }) {
+        throw IllegalArgumentException("Unable to add child $child to $this since it already has a parent of type ${T::class.simpleName}")
+    }
+
+    children += child.apply { creator() }
+}
 
 abstract class Tag(
     private val name: String,

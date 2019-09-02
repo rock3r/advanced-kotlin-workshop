@@ -1,14 +1,14 @@
 package dev.sebastiano.workshop
 
-sealed class ThreeDimensionalShape(val name: String) {
+sealed class ThreeDimensionalShape(open val name: String) {
 
-    // TODO: Point
+    data class Point(val coords: Coords) : ThreeDimensionalShape("Point")
 
-    // TODO: Line
+    data class Line(val startCoords: Coords, val endCoords: Coords) : ThreeDimensionalShape("Line")
 
-    // TODO: Sphere
+    data class Sphere(val centerCoords: Coords, val radius: Int) : ThreeDimensionalShape("Sphere")
 
-    // TODO: ArbitraryShape
+    data class ArbitraryShape(override val name: String, val coordinates: List<Coords>) : ThreeDimensionalShape(name)
 }
 
 data class Coords(val x: Int, val y: Int, val z: Int)

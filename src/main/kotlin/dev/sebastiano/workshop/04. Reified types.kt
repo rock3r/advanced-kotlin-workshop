@@ -1,6 +1,5 @@
 package dev.sebastiano.workshop
 
-// TODO uncomment and make this compile
-//    inline fun <...> T.doIfTypeMatches(...) {
-//        ...
-//    }
+inline fun <T, reified R : T> T.doIfTypeMatches(action: (T) -> Unit) {
+    if (this is R) action(this)
+}

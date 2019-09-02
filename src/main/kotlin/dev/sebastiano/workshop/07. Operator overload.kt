@@ -2,35 +2,47 @@ package dev.sebastiano.workshop
 
 data class HexNumber(val value: Int) : Comparable<HexNumber>, Number() {
 
-    val hexString: String = TODO()
+    val hexString = value.toString(radix)
 
-    operator fun plus(other: HexNumber): HexNumber = TODO()
+    operator fun plus(other: HexNumber): HexNumber = HexNumber(Math.addExact(value, other.value))
 
-    operator fun minus(other: HexNumber): HexNumber = TODO()
+    operator fun minus(other: HexNumber): HexNumber = HexNumber(Math.subtractExact(value, other.value))
 
-    operator fun div(other: HexNumber): HexNumber = TODO()
+    operator fun div(other: HexNumber): HexNumber {
+        if (other.value == 0) throw ArithmeticException("Dividing by zero")
+        return HexNumber(value / other.value)
+    }
 
-    operator fun times(other: HexNumber): HexNumber = TODO()
+    operator fun times(other: HexNumber): HexNumber = HexNumber(Math.multiplyExact(value, other.value))
 
-    operator fun get(position: Int): Char = TODO()
+    operator fun get(position: Int): Char = hexString[position]
 
-    operator fun set(position: Int, digit: Char): HexNumber = TODO()
+    operator fun set(position: Int, digit: Char): HexNumber {
+        require(digit.isHexDigit) { "The character '$digit' is not a valid hex digit" }
+        return from(hexString.replaceAt(position, digit))
+    }
 
-    override fun compareTo(other: HexNumber): Int = TODO()
+    private fun String.replaceAt(position: Int, char: Char) = buildString {
+        append(this@replaceAt.substring(0 until position))
+        append(char)
+        append(this@replaceAt.substring(position + 1))
+    }
 
-    override fun toByte(): Byte = TODO()
+    override fun compareTo(other: HexNumber): Int = (this - other).value.coerceIn(-1..1)
 
-    override fun toChar(): Char = TODO()
+    override fun toByte(): Byte = value.toByte()
 
-    override fun toDouble(): Double = TODO()
+    override fun toChar(): Char = value.toChar()
 
-    override fun toFloat(): Float = TODO()
+    override fun toDouble(): Double = value.toDouble()
 
-    override fun toInt(): Int = TODO()
+    override fun toFloat(): Float = value.toFloat()
 
-    override fun toLong(): Long = TODO()
+    override fun toInt(): Int = value
 
-    override fun toShort(): Short = TODO()
+    override fun toLong(): Long = value.toLong()
+
+    override fun toShort(): Short = value.toShort()
 
     companion object {
 
