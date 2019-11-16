@@ -18,7 +18,7 @@ internal class ReifiedTypesTest {
         var value: Fruit? = null
         items.forEach { item ->
             // TODO uncomment this line and make the code compile
-//            ReifiedTypes.doIfTypeMatches<Fruit, Banana>(item) { fruit -> value = fruit }
+//            item.doIfTypeMatches<Fruit, Banana> { fruit -> value = fruit }
         }
 
         assertThat(value).isEqualTo(Banana)
@@ -29,7 +29,7 @@ internal class ReifiedTypesTest {
         var value: Fruit? = Melon // TODO this should be initialized to null
         items.forEach { item ->
             // TODO uncomment this line and make the code compile
-//            ReifiedTypes.doIfTypeMatches<Fruit, Melon>(item) { fruit -> value = fruit }
+//            item.doIfTypeMatches<Fruit, Melon> { fruit -> value = fruit }
         }
 
         assertThat(value).isNull()
