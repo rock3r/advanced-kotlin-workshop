@@ -1,7 +1,5 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.6.10"
+    alias(libs.plugins.kotlinJvm)
 }
 
 group = "dev.sebastiano.workshop"
@@ -12,19 +10,20 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("reflect"))
-    implementation(kotlin("scripting-jsr223"))
+    implementation(libs.bundles.kotlin)
 
-    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
-    testImplementation("org.jsoup:jsoup:1.14.3")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    testImplementation(libs.assertk)
+    testImplementation(libs.jsoup)
+    testImplementation(libs.junit.jupiter)
+}
+
+kotlin {
+    jvmToolchain {
+        (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(11))
+    }
 }
 
 tasks {
-    withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "1.8"
-    }
-
     withType<Test> {
         useJUnitPlatform()
     }
