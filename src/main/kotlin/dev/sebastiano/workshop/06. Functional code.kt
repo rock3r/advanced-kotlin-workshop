@@ -31,7 +31,7 @@ data class Supermarket(val manager: Employee, val aisles: Set<Aisle>) {
 
     fun findMostPaidEmployee(): Employee = aisles.map { it.stocker }
             .plusElement(manager)
-            .maxBy { it.salary }!!
+            .maxByOrNull { it.salary }!!
 
     fun findEmployeeWithMostExpiredStock(): Employee? = findExpiredStockByAisle()
             .toList()

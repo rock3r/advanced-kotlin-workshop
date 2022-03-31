@@ -68,5 +68,5 @@ internal class HtmlDslTest {
 private val ktsEngine = ScriptEngineManager(HtmlDslTest::class.java.classLoader).getEngineByExtension("kts")!!
 
 fun evaluateAndParse(snippet: String): Document = Jsoup.parse(
-    ktsEngine.eval("import dev.sebastiano.workshop.*\n\n$snippet")?.toString()
+    ktsEngine.eval("import dev.sebastiano.workshop.*\n\n$snippet")?.toString()!!
 )
