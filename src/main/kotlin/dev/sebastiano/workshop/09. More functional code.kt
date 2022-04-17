@@ -16,7 +16,6 @@ fun Iterable<Int>.greatestCommonDivisor(): Int {
     require(count() > 1) { "The iterable must contain at least two numbers" }
 
     return map { it.toBigInteger() }
-            .reduce { gcd, number -> gcd.gcd(number) }
-            .toInt()
+        .reduce { gcd, number -> gcd.gcd(number) }
+        .toInt()
 }
-

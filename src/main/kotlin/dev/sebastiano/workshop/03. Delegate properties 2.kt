@@ -18,10 +18,10 @@ private class CacheableProperty<out T>(val producer: () -> T) : ReadOnlyProperty
     private var value: CachedValue<T> = CachedValue.Nothing
 
     override fun getValue(thisRef: Any, property: KProperty<*>): T =
-            when (value) {
-                is CachedValue.Nothing -> producer().also { value = CachedValue.Something(it) }
-                is CachedValue.Something<T> -> (value as CachedValue.Something<T>).value
-            }
+        when (value) {
+            is CachedValue.Nothing -> producer().also { value = CachedValue.Something(it) }
+            is CachedValue.Something<T> -> (value as CachedValue.Something<T>).value
+        }
 
     fun invalidate() {
         value = CachedValue.Nothing

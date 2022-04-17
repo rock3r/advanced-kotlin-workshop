@@ -17,10 +17,10 @@ internal class ThreeDimensionalShapeTest {
     private val otherCoords2 = Coords(1, 2, 1)
 
     private val shapes = listOf(
-            Point(originCoords),
-            Line(originCoords, otherCoords1),
-            Sphere(originCoords, 10),
-            ArbitraryShape("any-shape", listOf(originCoords, otherCoords1, otherCoords2))
+        Point(originCoords),
+        Line(originCoords, otherCoords1),
+        Sphere(originCoords, 10),
+        ArbitraryShape("any-shape", listOf(originCoords, otherCoords1, otherCoords2))
     )
 
     @Test
