@@ -17,7 +17,7 @@ internal class FunctionalMathsTest {
         @Test
         internal fun `should throw IllegalArgumentException when the iterable is empty`() {
             assertThat { emptyList<Int>().product() }.isFailure()
-                    .isInstanceOf(IllegalArgumentException::class)
+                .isInstanceOf(IllegalArgumentException::class)
         }
 
         @Test
@@ -29,9 +29,9 @@ internal class FunctionalMathsTest {
         internal fun `should throw ArithmeticException when the product overflow or underflows int`() {
             assertAll {
                 assertThat { listOf(Int.MIN_VALUE, 2).product() }.isFailure()
-                        .isInstanceOf(ArithmeticException::class)
+                    .isInstanceOf(ArithmeticException::class)
                 assertThat { listOf(Int.MAX_VALUE, 2).product() }.isFailure()
-                        .isInstanceOf(ArithmeticException::class)
+                    .isInstanceOf(ArithmeticException::class)
             }
         }
 
@@ -66,7 +66,7 @@ internal class FunctionalMathsTest {
         @Test
         internal fun `should throw IllegalArgumentException when the iterable is empty`() {
             assertThat { emptyList<Float>().division() }.isFailure()
-                    .isInstanceOf(IllegalArgumentException::class)
+                .isInstanceOf(IllegalArgumentException::class)
         }
 
         @Test
@@ -125,13 +125,13 @@ internal class FunctionalMathsTest {
         @Test
         internal fun `should throw IllegalArgumentException when the iterable is empty`() {
             assertThat { emptyList<Int>().greatestCommonDivisor() }.isFailure()
-                    .isInstanceOf(IllegalArgumentException::class)
+                .isInstanceOf(IllegalArgumentException::class)
         }
 
         @Test
         internal fun `should throw IllegalArgumentException when the iterable contains less than two numbers`() {
             assertThat { listOf(1).greatestCommonDivisor() }.isFailure()
-                    .isInstanceOf(IllegalArgumentException::class)
+                .isInstanceOf(IllegalArgumentException::class)
         }
 
         @Test

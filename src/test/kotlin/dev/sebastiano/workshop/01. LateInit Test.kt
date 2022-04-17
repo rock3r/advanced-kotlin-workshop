@@ -21,7 +21,7 @@ internal class LateInitTest {
         val lateInit = LateInit()
 
         assertThat { lateInit.fruit = null }.isFailure()
-                .isInstanceOf(IllegalArgumentException::class)
+            .isInstanceOf(IllegalArgumentException::class)
     }
 
     @Test
@@ -37,7 +37,7 @@ internal class LateInitTest {
         val lateInit = LateInit()
 
         assertThat { lateInit.performSomeWork() }.isFailure()
-                .isInstanceOf(UninitializedPropertyAccessException::class)
+            .isInstanceOf(UninitializedPropertyAccessException::class)
     }
 
     @Test

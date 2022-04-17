@@ -13,13 +13,13 @@ internal class HtmlDslTest {
     @Test
     internal fun `should produce HTML with the right title in the head`() {
         val document = evaluateAndParse(
-                """
-                html {
-                    head {
-                        title("The title")
-                    }
-                }.toString()
-                """.trimIndent()
+            """
+            html {
+                head {
+                    title("The title")
+                }
+            }.toString()
+            """.trimIndent()
         )
 
         assertThat(document.select("head title").text()).isEqualTo("The title")
@@ -28,13 +28,13 @@ internal class HtmlDslTest {
     @Test
     internal fun `should produce HTML with the right h1 in the body`() {
         val document = evaluateAndParse(
-                """
-                html {
-                    body {
-                        h1("The title")
-                    }
-                }.toString()
-                """.trimIndent()
+            """
+            html {
+                body {
+                    h1("The title")
+                }
+            }.toString()
+            """.trimIndent()
         )
 
         assertThat(document.select("body h1").text()).isEqualTo("The title")
@@ -43,19 +43,19 @@ internal class HtmlDslTest {
     @Test
     internal fun `should produce HTML with a properly rendered list in the body`() {
         val document = evaluateAndParse(
-                """
-                html {
-                    body {
-                        h1("The title")
-                        orderedList {
-                            listItem { rawText("First item") }
-                            listItem { rawText("Second item") }
-                            listItem { /* Empty item */ }
-                            listItem { rawText("Third item") }
-                        }
+            """
+            html {
+                body {
+                    h1("The title")
+                    orderedList {
+                        listItem { rawText("First item") }
+                        listItem { rawText("Second item") }
+                        listItem { /* Empty item */ }
+                        listItem { rawText("Third item") }
                     }
-                }.toString()    
-                """.trimIndent()
+                }
+            }.toString()    
+            """.trimIndent()
         )
 
         assertThat(document.select("body ol li:eq(0)").text()).isEqualTo("First item")
@@ -68,5 +68,5 @@ internal class HtmlDslTest {
 private val ktsEngine = ScriptEngineManager(HtmlDslTest::class.java.classLoader).getEngineByExtension("kts")!!
 
 fun evaluateAndParse(snippet: String): Document = Jsoup.parse(
-        ktsEngine.eval("import dev.sebastiano.workshop.*\n\n$snippet")?.toString()
+    ktsEngine.eval("import dev.sebastiano.workshop.*\n\n$snippet")?.toString()
 )

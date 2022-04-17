@@ -18,8 +18,8 @@ import java.time.LocalDate
 internal class SupermarketTest {
 
     private val supermarket = Supermarket(
-            manager = theBigBoss,
-            aisles = setOf(foodAisle, drinksAisle, clothingAisle)
+        manager = theBigBoss,
+        aisles = setOf(foodAisle, drinksAisle, clothingAisle)
     )
 
     @Nested
@@ -29,7 +29,7 @@ internal class SupermarketTest {
         internal fun `should throw an IllegalArgumentException if the aisle is not in the supermarket`() {
             val anAisle = Aisle(4, theBigBoss, emptyMap())
             assertThat { supermarket.findExpiredStockInAisle(anAisle) }.isFailure()
-                    .isInstanceOf(IllegalArgumentException::class)
+                .isInstanceOf(IllegalArgumentException::class)
         }
 
         @Test
@@ -52,9 +52,9 @@ internal class SupermarketTest {
         @Test
         internal fun `should return a list of expired items if the aisle has some stock with an expiry in the past or today`() {
             assertThat(supermarket.findExpiredStockInAisle(foodAisle)).containsExactly(
-                    StockItem("Banana", 180, today),
-                    StockItem("Bread", 280, today),
-                    StockItem("Chicken", 320, lastWeek)
+                StockItem("Banana", 180, today),
+                StockItem("Bread", 280, today),
+                StockItem("Chicken", 320, lastWeek)
             )
         }
     }
@@ -71,8 +71,8 @@ internal class SupermarketTest {
         @Test
         internal fun `should return an empty map if the aisles are empty`() {
             val emptySupermarket = Supermarket(
-                    theBigBoss,
-                    setOf(foodAisle.copy(stock = emptyMap()), drinksAisle.copy(stock = emptyMap()))
+                theBigBoss,
+                setOf(foodAisle.copy(stock = emptyMap()), drinksAisle.copy(stock = emptyMap()))
             )
             assertThat(emptySupermarket.findExpiredStockByAisle()).isEmpty()
         }
@@ -86,11 +86,11 @@ internal class SupermarketTest {
         @Test
         internal fun `should return a map of expired items by aisle if the aisles have some stock with an expiry in the past or today`() {
             assertThat(supermarket.findExpiredStockByAisle()).containsExactly(
-                    foodAisle to listOf(
-                            StockItem("Banana", 180, today),
-                            StockItem("Bread", 280, today),
-                            StockItem("Chicken", 320, lastWeek)
-                    )
+                foodAisle to listOf(
+                    StockItem("Banana", 180, today),
+                    StockItem("Bread", 280, today),
+                    StockItem("Chicken", 320, lastWeek)
+                )
             )
         }
     }
@@ -113,11 +113,11 @@ internal class SupermarketTest {
         internal fun `should return the mysterious stranger if other employees and manager all have lower salaries`() {
             val theMysteriousStranger = Employee("Mysterious", "Stranger", -1, "?", 100000)
             val supermarket = supermarket.copy(
-                    aisles = setOf(
-                            foodAisle,
-                            drinksAisle,
-                            clothingAisle.copy(stocker = theMysteriousStranger)
-                    )
+                aisles = setOf(
+                    foodAisle,
+                    drinksAisle,
+                    clothingAisle.copy(stocker = theMysteriousStranger)
+                )
             )
             assertThat(supermarket.findMostPaidEmployee()).isEqualTo(theMysteriousStranger)
         }
@@ -135,8 +135,8 @@ internal class SupermarketTest {
         @Test
         internal fun `should return null if the aisles are empty`() {
             val emptySupermarket = Supermarket(
-                    theBigBoss,
-                    setOf(foodAisle.copy(stock = emptyMap()), drinksAisle.copy(stock = emptyMap()))
+                theBigBoss,
+                setOf(foodAisle.copy(stock = emptyMap()), drinksAisle.copy(stock = emptyMap()))
             )
             assertThat(emptySupermarket.findEmployeeWithMostExpiredStock()).isNull()
         }
@@ -160,7 +160,7 @@ internal class SupermarketTest {
         internal fun `should throw an IllegalArgumentException if the employee is not in the supermarket`() {
             val theMysteriousStranger = Employee("Mysterious", "Stranger", -1, "?", 100000)
             assertThat { supermarket.removeExpiredItems(theMysteriousStranger) }.isFailure()
-                    .isInstanceOf(IllegalArgumentException::class)
+                .isInstanceOf(IllegalArgumentException::class)
         }
 
         @Test
@@ -180,21 +180,21 @@ internal class SupermarketTest {
         @Test
         internal fun `should return a list of expired items if the aisle has some stock with an expiry in the past or today`() {
             assertThat(supermarket.removeExpiredItems(employeeOne)).isEqualTo(
-                    supermarket.copy(
-                            aisles = setOf(
-                                    foodAisle.copy(
-                                            stock = mapOf(
-                                                    StockItem("Apple", 140, tomorrow) to 100,
-                                                    StockItem("Beef", 450, tomorrow) to 20,
-                                                    StockItem("Salt", 320) to 60,
-                                                    StockItem("Pepper", 320) to 40,
-                                                    StockItem("Oil", 320) to 50
-                                            )
-                                    ),
-                                    drinksAisle,
-                                    clothingAisle
+                supermarket.copy(
+                    aisles = setOf(
+                        foodAisle.copy(
+                            stock = mapOf(
+                                StockItem("Apple", 140, tomorrow) to 100,
+                                StockItem("Beef", 450, tomorrow) to 20,
+                                StockItem("Salt", 320) to 60,
+                                StockItem("Pepper", 320) to 40,
+                                StockItem("Oil", 320) to 50
                             )
+                        ),
+                        drinksAisle,
+                        clothingAisle
                     )
+                )
             )
         }
     }
@@ -205,72 +205,72 @@ internal class SupermarketTest {
         @Test
         internal fun `should throw an NoSuchElementException if the item is not stocked in the supermarket`() {
             assertThat { supermarket.sellItem("Potato") }.isFailure()
-                    .isInstanceOf(NoSuchElementException::class)
+                .isInstanceOf(NoSuchElementException::class)
         }
 
         @Test
         internal fun `should throw an IllegalArgumentException if the quantity is zero`() {
             assertThat { supermarket.sellItem("Bread", 0) }.isFailure()
-                    .isInstanceOf(IllegalArgumentException::class)
+                .isInstanceOf(IllegalArgumentException::class)
         }
 
         @Test
         internal fun `should throw an IllegalArgumentException if the quantity is negative`() {
             assertThat { supermarket.sellItem("Bread", -1) }.isFailure()
-                    .isInstanceOf(IllegalArgumentException::class)
+                .isInstanceOf(IllegalArgumentException::class)
         }
 
         @Test
         internal fun `should return a supermarket with reduced stock for the item if there's more of the item in stock than sold`() {
             assertThat(supermarket.sellItem("Banana", 10)).isIdenticalTo(
-                    supermarket.copy(
-                            aisles = setOf(
-                                    foodAisle.copy(
-                                            stock = mapOf(
-                                                    StockItem("Banana", 180, today) to 90,
-                                                    StockItem("Apple", 140, tomorrow) to 100,
-                                                    StockItem("Bread", 280, today) to 80,
-                                                    StockItem("Beef", 450, tomorrow) to 20,
-                                                    StockItem("Chicken", 320, lastWeek) to 40,
-                                                    StockItem("Salt", 320) to 60,
-                                                    StockItem("Pepper", 320) to 40,
-                                                    StockItem("Oil", 320) to 50
-                                            )
-                                    ),
-                                    drinksAisle,
-                                    clothingAisle
+                supermarket.copy(
+                    aisles = setOf(
+                        foodAisle.copy(
+                            stock = mapOf(
+                                StockItem("Banana", 180, today) to 90,
+                                StockItem("Apple", 140, tomorrow) to 100,
+                                StockItem("Bread", 280, today) to 80,
+                                StockItem("Beef", 450, tomorrow) to 20,
+                                StockItem("Chicken", 320, lastWeek) to 40,
+                                StockItem("Salt", 320) to 60,
+                                StockItem("Pepper", 320) to 40,
+                                StockItem("Oil", 320) to 50
                             )
+                        ),
+                        drinksAisle,
+                        clothingAisle
                     )
+                )
             )
         }
 
         @Test
         internal fun `should return a supermarket without the item in stock if there's exactly the same quantity of the item in stock than sold`() {
             assertThat(supermarket.sellItem("Banana", 100)).isIdenticalTo(
-                    supermarket.copy(
-                            aisles = setOf(
-                                    foodAisle.copy(
-                                            stock = mapOf(
-                                                    StockItem("Apple", 140, tomorrow) to 100,
-                                                    StockItem("Bread", 280, today) to 80,
-                                                    StockItem("Beef", 450, tomorrow) to 20,
-                                                    StockItem("Chicken", 320, lastWeek) to 40,
-                                                    StockItem("Salt", 320) to 60,
-                                                    StockItem("Pepper", 320) to 40,
-                                                    StockItem("Oil", 320) to 50
-                                            )
-                                    ),
-                                    drinksAisle,
-                                    clothingAisle
+                supermarket.copy(
+                    aisles = setOf(
+                        foodAisle.copy(
+                            stock = mapOf(
+                                StockItem("Apple", 140, tomorrow) to 100,
+                                StockItem("Bread", 280, today) to 80,
+                                StockItem("Beef", 450, tomorrow) to 20,
+                                StockItem("Chicken", 320, lastWeek) to 40,
+                                StockItem("Salt", 320) to 60,
+                                StockItem("Pepper", 320) to 40,
+                                StockItem("Oil", 320) to 50
                             )
+                        ),
+                        drinksAisle,
+                        clothingAisle
                     )
+                )
             )
         }
 
         @Test
         internal fun `should throw IllegalArgumentException if there's less of the item in stock than sold`() {
             assertThat { supermarket.sellItem("Banana", 101) }.isFailure()
-                    .isInstanceOf(IllegalArgumentException::class)
+                .isInstanceOf(IllegalArgumentException::class)
         }
     }
 
@@ -280,42 +280,42 @@ internal class SupermarketTest {
         @Test
         internal fun `should throw IllegalArgumentException if the quantity is zero`() {
             assertThat { supermarket.returnItem("Potato", 0) }.isFailure()
-                    .isInstanceOf(IllegalArgumentException::class)
+                .isInstanceOf(IllegalArgumentException::class)
         }
 
         @Test
         internal fun `should throw IllegalArgumentException if the quantity is negative`() {
             assertThat { supermarket.returnItem("Potato", -1) }.isFailure()
-                    .isInstanceOf(IllegalArgumentException::class)
+                .isInstanceOf(IllegalArgumentException::class)
         }
 
         @Test
         internal fun `should throw NoSuchElementException if the item is not already in stock`() {
             assertThat { supermarket.returnItem("Potato") }.isFailure()
-                    .isInstanceOf(NoSuchElementException::class)
+                .isInstanceOf(NoSuchElementException::class)
         }
 
         @Test
         internal fun `should increment the stock quantity for the item if it's already in stock`() {
             assertThat(supermarket.returnItem("Bread", 10)).isIdenticalTo(
-                    supermarket.copy(
-                            aisles = setOf(
-                                    foodAisle.copy(
-                                            stock = mapOf(
-                                                    StockItem("Banana", 180, today) to 100,
-                                                    StockItem("Apple", 140, tomorrow) to 100,
-                                                    StockItem("Bread", 280, today) to 90,
-                                                    StockItem("Beef", 450, tomorrow) to 20,
-                                                    StockItem("Chicken", 320, lastWeek) to 40,
-                                                    StockItem("Salt", 320) to 60,
-                                                    StockItem("Pepper", 320) to 40,
-                                                    StockItem("Oil", 320) to 50
-                                            )
-                                    ),
-                                    drinksAisle,
-                                    clothingAisle
+                supermarket.copy(
+                    aisles = setOf(
+                        foodAisle.copy(
+                            stock = mapOf(
+                                StockItem("Banana", 180, today) to 100,
+                                StockItem("Apple", 140, tomorrow) to 100,
+                                StockItem("Bread", 280, today) to 90,
+                                StockItem("Beef", 450, tomorrow) to 20,
+                                StockItem("Chicken", 320, lastWeek) to 40,
+                                StockItem("Salt", 320) to 60,
+                                StockItem("Pepper", 320) to 40,
+                                StockItem("Oil", 320) to 50
                             )
+                        ),
+                        drinksAisle,
+                        clothingAisle
                     )
+                )
             )
         }
     }
@@ -337,8 +337,8 @@ internal class SupermarketTest {
         @Test
         internal fun `should never execute the action when if the aisles are empty`() {
             val emptySupermarket = Supermarket(
-                    theBigBoss,
-                    setOf(foodAisle.copy(stock = emptyMap()), drinksAisle.copy(stock = emptyMap()))
+                theBigBoss,
+                setOf(foodAisle.copy(stock = emptyMap()), drinksAisle.copy(stock = emptyMap()))
             )
 
             emptySupermarket.forEachStockItem { _, _ -> counter.recordOneItem() }
@@ -349,8 +349,8 @@ internal class SupermarketTest {
         @Test
         internal fun `should execute the action the correct number of times when there is only one aisle with stock`() {
             val supermarket = Supermarket(
-                    theBigBoss,
-                    setOf(foodAisle, drinksAisle.copy(stock = emptyMap()))
+                theBigBoss,
+                setOf(foodAisle, drinksAisle.copy(stock = emptyMap()))
             )
 
             supermarket.forEachStockItem { _, _ -> counter.recordOneItem() }
@@ -383,9 +383,9 @@ private fun Assert<Supermarket>.isIdenticalTo(expected: Supermarket) {
         assertThat(actual.aisles.size).isEqualTo(expected.aisles.size)
 
         fun Aisle.isEquivalentTo(other: Aisle) =
-                number == other.number &&
-                        stocker == other.stocker &&
-                        stock.size == other.stock.size
+            number == other.number &&
+                stocker == other.stocker &&
+                stock.size == other.stock.size
 
         for (aisle in actual.aisles) {
             val correspondingAisle = expected.aisles.firstOrNull { it.isEquivalentTo(aisle) }
@@ -407,42 +407,42 @@ private val employeeTwo = Employee("Haida", "Tsunoda", 32, "Stock Clerk", 27300)
 private val employeeThree = Employee("Tsubone", "Kabae", 38, "Senior Stock Clerk", 31000)
 
 private val foodAisle = Aisle(
-        number = 1,
-        stocker = employeeOne,
-        stock = mapOf(
-                StockItem("Banana", 180, today) to 100,
-                StockItem("Apple", 140, tomorrow) to 100,
-                StockItem("Bread", 280, today) to 80,
-                StockItem("Beef", 450, tomorrow) to 20,
-                StockItem("Chicken", 320, lastWeek) to 40,
-                StockItem("Salt", 320) to 60,
-                StockItem("Pepper", 320) to 40,
-                StockItem("Oil", 320) to 50
-        )
+    number = 1,
+    stocker = employeeOne,
+    stock = mapOf(
+        StockItem("Banana", 180, today) to 100,
+        StockItem("Apple", 140, tomorrow) to 100,
+        StockItem("Bread", 280, today) to 80,
+        StockItem("Beef", 450, tomorrow) to 20,
+        StockItem("Chicken", 320, lastWeek) to 40,
+        StockItem("Salt", 320) to 60,
+        StockItem("Pepper", 320) to 40,
+        StockItem("Oil", 320) to 50
+    )
 )
 
 private val drinksAisle = Aisle(
-        number = 2,
-        stocker = employeeTwo,
-        stock = mapOf(
-                StockItem("Still water", 25, nextWeek) to 90,
-                StockItem("Sparkling water", 25, nextWeek) to 90,
-                StockItem("Lemonade", 160, tomorrow) to 20,
-                StockItem("Cola", 160, tomorrow) to 35,
-                StockItem("Orange juice", 220, tomorrow) to 20
-        )
+    number = 2,
+    stocker = employeeTwo,
+    stock = mapOf(
+        StockItem("Still water", 25, nextWeek) to 90,
+        StockItem("Sparkling water", 25, nextWeek) to 90,
+        StockItem("Lemonade", 160, tomorrow) to 20,
+        StockItem("Cola", 160, tomorrow) to 35,
+        StockItem("Orange juice", 220, tomorrow) to 20
+    )
 )
 
 private val clothingAisle = Aisle(
-        number = 3,
-        stocker = employeeThree,
-        stock = mapOf(
-                StockItem("Shoes", 6000) to 45,
-                StockItem("T-shirt", 1699) to 75,
-                StockItem("Trousers", 2420) to 30,
-                StockItem("Pants", 895) to 40,
-                StockItem("Socks", 345) to 50
-        )
+    number = 3,
+    stocker = employeeThree,
+    stock = mapOf(
+        StockItem("Shoes", 6000) to 45,
+        StockItem("T-shirt", 1699) to 75,
+        StockItem("Trousers", 2420) to 30,
+        StockItem("Pants", 895) to 40,
+        StockItem("Socks", 345) to 50
+    )
 )
 
 private class Counter {

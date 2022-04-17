@@ -22,8 +22,8 @@ package dev.sebastiano.workshop
 // (the tests use JSoup to normalize the resulting HTML to give you some freedom)
 
 abstract class Tag(
-        private val name: String,
-        val children: MutableList<Tag> = mutableListOf()
+    private val name: String,
+    val children: MutableList<Tag> = mutableListOf()
 ) {
 
     override fun toString(): String {

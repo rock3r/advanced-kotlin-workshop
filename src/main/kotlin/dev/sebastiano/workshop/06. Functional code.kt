@@ -24,23 +24,23 @@ data class Supermarket(val manager: Employee, val aisles: Set<Aisle>) {
 }
 
 data class Aisle(
-        val number: Int,
-        val stocker: Employee,
-        val stock: Map<StockItem, StockItemQuantity>
+    val number: Int,
+    val stocker: Employee,
+    val stock: Map<StockItem, StockItemQuantity>
 )
 
 data class Employee(
-        val firstName: String,
-        val lastName: String,
-        val age: Int,
-        val role: String,
-        val salary: Int
+    val firstName: String,
+    val lastName: String,
+    val age: Int,
+    val role: String,
+    val salary: Int
 )
 
 data class StockItem(
-        val name: String,
-        val priceCents: Int,
-        val expiryDate: LocalDate? = null
+    val name: String,
+    val priceCents: Int,
+    val expiryDate: LocalDate? = null
 )
 
 typealias StockItemQuantity = Int

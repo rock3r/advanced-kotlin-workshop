@@ -16,25 +16,25 @@ internal class HexNumberTest {
         @Test
         internal fun `should throw IllegalArgumentException when created from a non-hex string`() {
             assertThat { HexNumber.from("banana") }.isFailure()
-                    .isInstanceOf(IllegalArgumentException::class)
+                .isInstanceOf(IllegalArgumentException::class)
         }
 
         @Test
         internal fun `should throw IllegalArgumentException when initialized with an empty string`() {
             assertThat { HexNumber.from("") }.isFailure()
-                    .isInstanceOf(IllegalArgumentException::class)
+                .isInstanceOf(IllegalArgumentException::class)
         }
 
         @Test
         internal fun `should throw NumberFormatException when initialized with a value larger than Int's MAX_VALUE`() {
             assertThat { HexNumber.from("80000000") }.isFailure()
-                    .isInstanceOf(NumberFormatException::class)
+                .isInstanceOf(NumberFormatException::class)
         }
 
         @Test
         internal fun `should throw NumberFormatException when initialized with a value smaller than Int's MIN_VALUE`() {
             assertThat { HexNumber.from("-80000001") }.isFailure()
-                    .isInstanceOf(NumberFormatException::class)
+                .isInstanceOf(NumberFormatException::class)
         }
 
         @Test
@@ -55,7 +55,6 @@ internal class HexNumberTest {
             assertThat(HexNumber.from("-ffff").value).isEqualTo(-65535)
             assertThat(HexNumber.from("-80000000").value).isEqualTo(Int.MIN_VALUE)
         }
-
     }
 
     @Nested
@@ -78,13 +77,13 @@ internal class HexNumberTest {
         @Test
         internal fun `should throw ArithmeticException when the sum is a value larger than Int's MAX_VALUE`() {
             assertThat { HexNumber(0x1) + HexNumber(0x7fffffff) }.isFailure()
-                    .isInstanceOf(ArithmeticException::class)
+                .isInstanceOf(ArithmeticException::class)
         }
 
         @Test
         internal fun `should throw ArithmeticException when the sum is a value smaller than Int's MIN_VALUE`() {
             assertThat { HexNumber(-0x1) + HexNumber(-0x80000000) }.isFailure()
-                    .isInstanceOf(ArithmeticException::class)
+                .isInstanceOf(ArithmeticException::class)
         }
 
         @Test
@@ -125,13 +124,13 @@ internal class HexNumberTest {
         @Test
         internal fun `should throw ArithmeticException when the difference is a value larger than Int's MAX_VALUE`() {
             assertThat { HexNumber(0x1) - HexNumber(-0x7fffffff) }.isFailure()
-                    .isInstanceOf(ArithmeticException::class)
+                .isInstanceOf(ArithmeticException::class)
         }
 
         @Test
         internal fun `should throw ArithmeticException when the difference is a value smaller than Int's MIN_VALUE`() {
             assertThat { HexNumber(-0x80000000) - HexNumber(0x1) }.isFailure()
-                    .isInstanceOf(ArithmeticException::class)
+                .isInstanceOf(ArithmeticException::class)
         }
 
         @Test
@@ -217,13 +216,13 @@ internal class HexNumberTest {
         @Test
         internal fun `should throw ArithmeticException when the product is a value larger than Int's MAX_VALUE`() {
             assertThat { HexNumber(0x7fffffff) * HexNumber(0x2) }.isFailure()
-                    .isInstanceOf(ArithmeticException::class)
+                .isInstanceOf(ArithmeticException::class)
         }
 
         @Test
         internal fun `should throw ArithmeticException when the product is a value smaller than Int's MIN_VALUE`() {
             assertThat { HexNumber(-0x80000000) * HexNumber(0x2) }.isFailure()
-                    .isInstanceOf(ArithmeticException::class)
+                .isInstanceOf(ArithmeticException::class)
         }
 
         @Test
@@ -266,19 +265,19 @@ internal class HexNumberTest {
         @Test
         internal fun `should throw IndexOutOfBounds if the index is negative`() {
             assertThat { HexNumber(0x123456F)[-1] }.isFailure()
-                    .isInstanceOf(IndexOutOfBoundsException::class)
+                .isInstanceOf(IndexOutOfBoundsException::class)
         }
 
         @Test
         internal fun `should throw IndexOutOfBounds if the index is equal to the hex string length`() {
             assertThat { HexNumber(0x123456F)[7] }.isFailure()
-                    .isInstanceOf(IndexOutOfBoundsException::class)
+                .isInstanceOf(IndexOutOfBoundsException::class)
         }
 
         @Test
         internal fun `should throw IndexOutOfBounds if the index is greater than the hex string length`() {
             assertThat { HexNumber(0x123456F)[8] }.isFailure()
-                    .isInstanceOf(IndexOutOfBoundsException::class)
+                .isInstanceOf(IndexOutOfBoundsException::class)
         }
 
         @Test
@@ -293,19 +292,19 @@ internal class HexNumberTest {
         @Test
         internal fun `should throw IndexOutOfBounds if the index is negative`() {
             assertThat { HexNumber(0x123456F)[-1] = '1' }.isFailure()
-                    .isInstanceOf(IndexOutOfBoundsException::class)
+                .isInstanceOf(IndexOutOfBoundsException::class)
         }
 
         @Test
         internal fun `should throw IndexOutOfBounds if the index is equal to the hex string length`() {
             assertThat { HexNumber(0x123456F)[7] = '1' }.isFailure()
-                    .isInstanceOf(IndexOutOfBoundsException::class)
+                .isInstanceOf(IndexOutOfBoundsException::class)
         }
 
         @Test
         internal fun `should throw IndexOutOfBounds if the index is greater than the hex string length`() {
             assertThat { HexNumber(0x123456F)[8] = '1' }.isFailure()
-                    .isInstanceOf(IndexOutOfBoundsException::class)
+                .isInstanceOf(IndexOutOfBoundsException::class)
         }
 
         @Test
