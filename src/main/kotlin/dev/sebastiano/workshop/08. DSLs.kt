@@ -9,8 +9,8 @@ package dev.sebastiano.workshop
 //          * title         -> <title>...</title>
 //        * body            -> <body>...</body>
 //          * h1            -> <h1>...</h1>
-//          * orderedList   -> <orderedList>...</orderedList>
-//            * listItem    -> <listItem>...</listItem>
+//          * orderedList   -> <ol>...</ol>
+//            * listItem    -> <li>...</li>
 //              * rawText   -> [text value]
 //
 // Where each ... in a tag is essentially the toString() of all child nodes.
