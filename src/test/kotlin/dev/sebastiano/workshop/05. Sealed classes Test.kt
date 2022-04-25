@@ -28,10 +28,10 @@ internal class ThreeDimensionalShapeTest {
         val shape = shapes[0]
 
         assertThat(shape).isInstanceOf(Point::class)
-        shape as Point
+        val point = shape as Point
 
-        assertThat(shape.name).isEqualTo("Point")
-        assertThat(shape.coords).isEqualTo(originCoords)
+        assertThat(point.name).isEqualTo("Point")
+        assertThat(point.coords).isEqualTo(originCoords)
     }
 
     @Test
@@ -39,11 +39,11 @@ internal class ThreeDimensionalShapeTest {
         val shape = shapes[1]
 
         assertThat(shape).isInstanceOf(Line::class)
-        shape as Line
+        val line = shape as Line
 
-        assertThat(shape.name).isEqualTo("Line")
-        assertThat(shape.startCoords).isEqualTo(originCoords)
-        assertThat(shape.endCoords).isEqualTo(otherCoords1)
+        assertThat(line.name).isEqualTo("Line")
+        assertThat(line.startCoords).isEqualTo(originCoords)
+        assertThat(line.endCoords).isEqualTo(otherCoords1)
     }
 
     @Test
@@ -51,11 +51,11 @@ internal class ThreeDimensionalShapeTest {
         val shape = shapes[2]
 
         assertThat(shape).isInstanceOf(Sphere::class)
-        shape as Sphere
+        val sphere = shape as Sphere
 
-        assertThat(shape.name).isEqualTo("Sphere")
-        assertThat(shape.centerCoords).isEqualTo(originCoords)
-        assertThat(shape.radius).isEqualTo(10)
+        assertThat(sphere.name).isEqualTo("Sphere")
+        assertThat(sphere.centerCoords).isEqualTo(originCoords)
+        assertThat(sphere.radius).isEqualTo(10)
     }
 
     @Test
@@ -63,9 +63,9 @@ internal class ThreeDimensionalShapeTest {
         val shape = shapes[3]
 
         assertThat(shape).isInstanceOf(ArbitraryShape::class)
-        shape as ArbitraryShape
+        val arbitraryShape = shape as ArbitraryShape
 
-        assertThat(shape.name).isEqualTo("any-shape")
-        assertThat(shape.coordinates).containsExactly(originCoords, otherCoords1, otherCoords2)
+        assertThat(arbitraryShape.name).isEqualTo("any-shape")
+        assertThat(arbitraryShape.coordinates).containsExactly(originCoords, otherCoords1, otherCoords2)
     }
 }
